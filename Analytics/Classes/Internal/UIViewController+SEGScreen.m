@@ -38,7 +38,22 @@
 
 + (UIViewController *)seg_topViewController
 {
-    UIViewController *root = [[SEGAnalytics sharedAnalytics] configuration].application.delegate.window.rootViewController;
+    UIViewController * root = nil;
+    if (@available(iOS 13, *)) {
+        NSSet *connectedScenes = [UIApplication sharedApplication].connectedScenes;
+        for (UIScene *scene in connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive && [scene isKindOfClass:[UIWindowScene class]]) {
+                UIWindowScene *windowScene = (UIWindowScene *)scene;
+                for (UIWindow *window in windowScene.windows) {
+                    if (window.isKeyWindow) {
+                        root = window.rootViewController;
+                    }
+                }
+            }
+        }
+    } else {
+        root = [[SEGAnalytics sharedAnalytics] configuration].application.delegate.window.rootViewController;
+    }
     return [self seg_topViewController:root];
 }
 
