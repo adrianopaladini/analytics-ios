@@ -9,11 +9,7 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "AnalyticsSwift", 
-            targets: ["AnalyticsSwift"]
-        ),
-        .library(
-            name: "AnalyticsObjectivC", 
+            name: "Analytics", 
             targets: ["Analytics"]
         )
     ],
@@ -31,11 +27,6 @@ let package = Package(
                 .headerSearchPath("Classes/Middlewares"),
                 .headerSearchPath("Vendor"),
             ]
-        ),
-        .target(
-            name: "AnalyticsSwift",
-            dependencies: ["Analytics"],
-            path: "AnalyticsSwift"
         )
     ]
 )
